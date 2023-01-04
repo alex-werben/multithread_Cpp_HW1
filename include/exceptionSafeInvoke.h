@@ -68,7 +68,7 @@ namespace detail {
             return std::forward<F>(f)(std::forward<Args>(args)...);
         }
         catch(...) {
-            return std::nullopt;
+            return NULL;
         }
     }
 

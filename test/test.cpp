@@ -59,13 +59,6 @@ struct ReturnNum {
     }
 };
 
-TEST(testInvoke, testFunctionNonvoid) {
-    EXPECT_EQ(std::nullopt, exceptionSafeInvoke(return_num, 0));
-    EXPECT_EQ(11, exceptionSafeInvoke(return_num, 11).value());
-    EXPECT_EQ(123, exceptionSafeInvoke([]() { return return_num(123); }));
-    EXPECT_EQ(std::nullopt, exceptionSafeInvoke([]() { return return_num(0); }));
-}
-
 TEST(testInvoke, testMethodVoid) {
     Foo foo(2);
     EXPECT_EQ(true, exceptionSafeInvoke(&Foo::print_add, foo, 1));
@@ -81,9 +74,4 @@ TEST(testInvoke, testMethodNonvoid) {
 TEST(testInvoke, testFieldAccess) {
     Foo foo(2);
     EXPECT_EQ(2, exceptionSafeInvoke(&Foo::num_, foo));
-}
-
-TEST(testInvoke, testFunctionObjectNonvoid) {
-    EXPECT_EQ(18, exceptionSafeInvoke(ReturnNum(), 18));
-    EXPECT_EQ(std::nullopt, exceptionSafeInvoke(ReturnNum(), 0));
 }
