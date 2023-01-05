@@ -55,7 +55,7 @@ namespace detail {
     bool exceptionSafeInvokeVoid(F&& f, Args&&... args) {
         try {
             std::forward<F>(f)(std::forward<Args>(args)...);
-            return false;
+            return true;
         }
         catch (...) {
             return false;
@@ -68,7 +68,7 @@ namespace detail {
             return std::forward<F>(f)(std::forward<Args>(args)...);
         }
         catch(...) {
-            return NULL;
+            return std::nullopt;
         }
     }
 
