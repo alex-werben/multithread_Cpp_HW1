@@ -75,3 +75,27 @@ TEST(testInvoke, testFieldAccess) {
     Foo foo(2);
     EXPECT_EQ(2, exceptionSafeInvoke(&Foo::num_, foo));
 }
+
+TEST(testInvoke, testFunctionVoid) {
+    EXPECT_TRUE(exceptionSafeInvoke(testFunc, 111));
+    EXPECT_FALSE(exceptionSafeInvoke(testFunc, 0));
+    EXPECT_FALSE(exceptionSafeInvoke([]() { print_num(0); }));
+    EXPECT_TRUE(exceptionSafeInvoke([]() { print_num(11); }));
+}
+
+TEST(testInvoke, testFunctionNonvoid) {
+    EXPECT_EQ(std::nullopt, exceptionSafeInvoke(return_num, 0));
+    EXPECT_EQ(11, exceptionSafeInvoke(return_num, 11).value());
+    EXPECT_EQ(123, exceptionSafeInvoke([]() { return return_num(123); }));
+    EXPECT_EQ(std::nullopt, exceptionSafeInvoke([]() { return return_num(0); }));
+}
+
+TEST(testInvoke, testFunctionObjectVoid) {
+    EXPECT_TRUE(exceptionSafeInvoke(PrintNum(), 18));
+    EXPECT_FALSE(exceptionSafeInvoke(PrintNum(), 0));
+}
+
+TEST(testInvoke, testFunctionObjectNonvoid) {
+    EXPECT_EQ(18, exceptionSafeInvoke(ReturnNum(), 18));
+    EXPECT_EQ(std::nullopt, exceptionSafeInvoke(ReturnNum(), 0));
+}
