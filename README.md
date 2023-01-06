@@ -1,8 +1,12 @@
 *Задание:*
 
-Реализуйте функцию exceptionSafeInvoke, которая аналогична std::invoke, но при этом не выпускает из себя исключения, т.е.:
-- Если Callabale возвращает void, то exceptionSafeInvoke() должна возвращать bool (false, если произошло любое исключение).
-- Если Callabale возвращает T != void, то exceptionSafeInvoke() должна возвращать std::optional<T> (nullopt, если произошло любое исключение).
+Реализуйте функцию exceptionSafeInvoke, которая аналогична std::invoke, но при этом не выпускает из себя исключения,
+т.е.:
+
+- Если Callabale возвращает void, то exceptionSafeInvoke() должна возвращать bool (false, если произошло любое
+  исключение).
+- Если Callabale возвращает T != void, то exceptionSafeInvoke() должна возвращать std::optional<T> (nullopt, если
+  произошло любое исключение).
 
 *Реализация:*
 
@@ -19,22 +23,26 @@
 Выполняется вызов функций.
 
 *Сборка:*
-~~~
+
+```bash
 cmake -B build
 cmake --build build
-~~~
+```
 
 *Запуск:*
-~~~
+
+```bash
 ./build/invoke
-~~~
+```
 
 *Запуск тестов:*
-~~~
+
+```bash
 ./build/test/test_run
-~~~
+```
 
 *Интеграционные тесты:*
-~~~
-sh test/integr/test.sh
-~~~
+
+```bash
+bash test/integr/test.sh
+```
